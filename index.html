@@ -178,6 +178,12 @@
             margin: 5px 0;
         }
 
+        .info p {
+            margin-top: 10px;
+            color: #333;
+            font-weight: 600;
+        }
+
         .history-section {
             margin-top: 30px;
             padding-top: 30px;
@@ -314,6 +320,7 @@
                 <li>No one can give to the same person they gave to in the last 2 years</li>
                 <li>Everyone gives to exactly one person</li>
             </ul>
+            <p id="roster"></p>
         </div>
 
         <div class="controls">
@@ -367,6 +374,10 @@
                 historyData = await response.json();
                 loadingEl.style.display = 'none';
                 document.getElementById('generateBtn').disabled = false;
+                const parsed = parseHistory(historyData);
+                document.getElementById('roster').textContent =
+                    `This year's draw: ${parsed.people.join(', ')}`;
+                console.log('Loaded draw roster:', parsed.people);
                 displayHistory();
             } catch (error) {
                 loadingEl.style.display = 'none';
@@ -398,9 +409,16 @@
                 history[giver].sort((a, b) => a.year - b.year);
             });
 
+            const listedPeople = Array.isArray(data.people)
+                ? data.people.filter(name => typeof name === 'string' && name.trim())
+                : [];
+            const people = listedPeople.length > 0
+                ? [...new Set(listedPeople)].sort()
+                : Array.from(peopleSet).sort();
+
             return {
                 history: history,
-                people: Array.from(peopleSet).sort()
+                people: people
             };
         }
 

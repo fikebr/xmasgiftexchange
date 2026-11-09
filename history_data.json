@@ -1,4 +1,15 @@
 {
+  "people": [
+    "Ari",
+    "Bethany",
+    "Brad",
+    "Branden",
+    "Dan",
+    "Danielle",
+    "Lydia",
+    "Sarah",
+    "Spencer"
+  ],
   "history": [
     {"giver": "Brad", "recipient": "Ari", "year": 2022},
     {"giver": "Sarah", "recipient": "Dan", "year": 2022},
